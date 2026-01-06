@@ -1,0 +1,6 @@
+{
+  "name": "Weather Compare: Yesterday vs. Today",
+  "description": "An application that uses real weather data to compare today's weather with yesterday's for any given location, providing a side-by-side view and an AI-generated summary.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}

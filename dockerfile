@@ -1,0 +1,21 @@
+FROM node:20-alpine AS build
+WORKDIR /app
+
+# Copy package files
+COPY package.json package-lock.json* ./
+RUN npm install
+
+# Copy source files
+COPY . .
+
+# Build argument for API key
+ARG GEMINI_API_KEY
+ENV GEMINI_API_KEY=$GEMINI_API_KEY
+
+# Build the application
+RUN npm run build
+
+FROM nginx:stable-alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

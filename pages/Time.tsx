@@ -31,8 +31,8 @@ const Time: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950 text-slate-100 font-sans flex items-center justify-center p-4 overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent"></div>
+    <div className="h-full bg-gradient-to-br from-slate-950 via-slate-900 to-sky-950 text-slate-100 font-sans flex items-center justify-center p-4 overflow-hidden relative">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-cyan-900/20 via-transparent to-transparent pointer-events-none"></div>
 
       <div
         className={`relative text-center w-full max-w-7xl transition-all duration-1000 ${

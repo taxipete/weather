@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import GridLayout, { Layout } from "react-grid-layout";
+import GridLayout, { noCompactor } from "react-grid-layout";
+import type { Layout } from "react-grid-layout";
 import Home from "./Home";
 import Review from "./Review";
 import Time from "./Time";
 
 const LAYOUT_KEY = "combined-page-layout";
 
-const defaultLayout: Layout[] = [
+const defaultLayout = [
   { i: "home", x: 0, y: 0, w: 6, h: 2, minW: 3, minH: 1 },
   { i: "review", x: 6, y: 0, w: 6, h: 2, minW: 3, minH: 1 },
   { i: "time", x: 0, y: 2, w: 12, h: 1, minW: 3, minH: 1 },
-];
+] as Layout;
 
 const Combined: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(1200);
-  const [layout, setLayout] = useState<Layout[]>(() => {
+  const [layout, setLayout] = useState<Layout>(() => {
     const saved = localStorage.getItem(LAYOUT_KEY);
     return saved ? JSON.parse(saved) : defaultLayout;
   });
@@ -32,7 +33,7 @@ const Combined: React.FC = () => {
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
 
-  const handleLayoutChange = (newLayout: Layout[]) => {
+  const handleLayoutChange = (newLayout: Layout) => {
     setLayout(newLayout);
     localStorage.setItem(LAYOUT_KEY, JSON.stringify(newLayout));
   };
@@ -60,13 +61,16 @@ const Combined: React.FC = () => {
         <GridLayout
           className="layout"
           layout={layout}
-          cols={12}
-          rowHeight={300}
           width={containerWidth}
+          gridConfig={{
+            cols: 12,
+            rowHeight: 300,
+          }}
+          dragConfig={{
+            handle: ".drag-handle",
+          }}
+          compactor={noCompactor}
           onLayoutChange={handleLayoutChange}
-          draggableHandle=".drag-handle"
-          compactType={null}
-          preventCollision={false}
         >
           <div
             key="home"
